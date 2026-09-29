@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MATHUB</title>
+<style>
+  :root {
+    --ink: #1B1F3B;
+    --muted: #55597a;
+    --paper: #FFFFFF;
+    --line: #D9DCEC;
+    --grid: #E9EBF6;
+    --focus: #7C3AED;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 24px 16px 56px; }
+  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 3.4rem); letter-spacing: -0.02em; line-height: 1.05; }
+  .sub { margin: 8px 0 0; color: var(--muted); max-width: 46ch; }
+  .lang { display: flex; border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; background: var(--paper); }
+  .lang button { border: 0; background: transparent; padding: 6px 14px; font: inherit; font-weight: 600; cursor: pointer; color: var(--ink); }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .filters { margin: 28px 0 8px; padding: 14px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; display: grid; gap: 12px; }
+  .group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .group > span { font-weight: 600; min-width: 92px; }
+  .chip { border: 1.5px solid var(--line); background: var(--paper); border-radius: 999px; padding: 5px 14px; font: inherit; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; gap: 7px; }
+  .chip .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--ink)); }
+  .chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  button:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .count { margin: 14px 0; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-left: 8px solid var(--c, var(--ink)); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .card h2 { margin: 0; font-size: 1.25rem; }
+  .card p { margin: 0; color: var(--muted); flex: 1; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font-size: 0.82rem; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 6px; }
+  .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--ink)); }
+  .ads { font-size: 0.82rem; color: var(--muted); }
+  .visit { align-self: flex-start; text-decoration: none; background: var(--ink); color: var(--paper); padding: 8px 16px; border-radius: 8px; font-weight: 600; }
+  .visit:hover { background: #2d3363; }
+  .msg { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  footer { margin-top: 36px; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>MATHUB</h1>
+      <p class="sub" id="sub"></p>
+    </div>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button id="btn-es" aria-pressed="true">ES</button>
+      <button id="btn-en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <section class="filters" aria-label="Filtros">
+    <div class="group"><span id="lbl-level"></span><div class="group" id="levels"></div></div>
+    <div class="group"><span id="lbl-lang"></span><div class="group" id="langs"></div></div>
+  </section>
+
+  <p class="count" id="count" aria-live="polite"></p>
+  <main class="grid" id="grid"></main>
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const T = {
+  es: {
+    sub: "Plataformas gratuitas para aprender matemáticas, de primaria a la universidad.",
+    level: "Nivel", lang: "Idioma", all: "Todos", visit: "Ir a la plataforma",
+    ads: "Muestra publicidad", count: n => n + (n === 1 ? " plataforma" : " plataformas"),
+    none: "Ninguna plataforma coincide con estos filtros. Prueba con otro nivel o idioma.",
+    error: "No se pudo cargar plataformas.json. Abre la página desde su dirección en GitHub Pages, no como archivo en tu computador.",
+    foot: "MATHUB solo te lleva a cada plataforma; el contenido pertenece a sus autores.",
+    names: { es: "Español", en: "Inglés" }
+  },
+  en: {
+    sub: "Free platforms to learn math, from primary school to university.",
+    level: "Level", lang: "Language", all: "All", visit: "Visit platform",
+    ads: "Shows ads", count: n => n + (n === 1 ? " platform" : " platforms"),
+    none: "No platform matches these filters. Try another level or language.",
+    error: "Could not load plataformas.json. Open the page from its GitHub Pages address, not as a file on your computer.",
+    foot: "MATHUB only links to each platform; the content belongs to its authors.",
+    names: { es: "Spanish", en: "English" }
+  }
+};
+
+let data = null, lang = "es", fLevel = "all", fLang = "all";
+const $ = id => document.getElementById(id);
+
+function chip(label, pressed, onClick, color) {
+  const b = document.createElement("button");
+  b.className = "chip";
+  b.setAttribute("aria-pressed", pressed);
+  if (color) { b.style.setProperty("--c", color); b.innerHTML = '<span class="dot"></span>'; }
+  b.append(label);
+  b.onclick = onClick;
+  return b;
+}
+
+function render() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  $("sub").textContent = t.sub;
+  $("lbl-level").textContent = t.level;
+  $("lbl-lang").textContent = t.lang;
+  $("foot").textContent = t.foot;
+  $("btn-es").setAttribute("aria-pressed", lang === "es");
+  $("btn-en").setAttribute("aria-pressed", lang === "en");
+
+  const levels = $("levels"); levels.innerHTML = "";
+  levels.append(chip(t.all, fLevel === "all", () => { fLevel = "all"; render(); }));
+  for (const [k, v] of Object.entries(data.niveles))
+    levels.append(chip(v[lang], fLevel === k, () => { fLevel = k; render(); }, v.color));
+
+  const langs = $("langs"); langs.innerHTML = "";
+  langs.append(chip(t.all, fLang === "all", () => { fLang = "all"; render(); }));
+  for (const k of ["es", "en"])
+    langs.append(chip(t.names[k], fLang === k, () => { fLang = k; render(); }));
+
+  const list = data.plataformas.filter(p =>
+    (fLevel === "all" || p.niveles.includes(fLevel)) &&
+    (fLang === "all" || p.idiomas.includes(fLang)));
+
+  $("count").textContent = t.count(list.length);
+  const grid = $("grid"); grid.innerHTML = "";
+  if (!list.length) { grid.innerHTML = '<p class="msg"></p>'; grid.firstChild.textContent = t.none; return; }
+
+  for (const p of list) {
+    const first = data.niveles[p.niveles[0]];
+    const card = document.createElement("article");
+    card.className = "card";
+    card.style.setProperty("--c", first.color);
+
+    const h = document.createElement("h2"); h.textContent = p.nombre;
+    const d = document.createElement("p"); d.textContent = p.descripcion[lang];
+
+    const pills = document.createElement("div"); pills.className = "pills";
+    for (const k of p.niveles) {
+      const s = document.createElement("span"); s.className = "pill";
+      s.style.setProperty("--c", data.niveles[k].color);
+      s.innerHTML = '<span class="dot"></span>'; s.append(data.niveles[k][lang]);
+      pills.append(s);
+    }
+    const langPill = document.createElement("span"); langPill.className = "pill";
+    langPill.textContent = p.idiomas.map(k => k.toUpperCase()).join(" / ");
+    pills.append(langPill);
+
+    const a = document.createElement("a");
+    a.className = "visit"; a.href = p.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.textContent = t.visit;
+
+    card.append(h, pills, d);
+    if (p.publicidad) { const ad = document.createElement("span"); ad.className = "ads"; ad.textContent = t.ads; card.append(ad); }
+    card.append(a);
+    grid.append(card);
+  }
+}
+
+$("btn-es").onclick = () => { lang = "es"; render(); };
+$("btn-en").onclick = () => { lang = "en"; render(); };
+
+fetch("plataformas.json")
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(j => { data = j; render(); })
+  .catch(() => { $("count").textContent = ""; const m = document.createElement("p"); m.className = "msg"; m.textContent = T.es.error; $("grid").append(m); });
+</script>
+</body>
+</html>
