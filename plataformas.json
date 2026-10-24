@@ -1,0 +1,228 @@
+{
+  "niveles": {
+    "primaria": {
+      "es": "Primaria",
+      "en": "Primary",
+      "color": "#FF6B6B"
+    },
+    "secundaria": {
+      "es": "Secundaria",
+      "en": "Middle school",
+      "color": "#4D96FF"
+    },
+    "bachillerato": {
+      "es": "Bachillerato",
+      "en": "High school",
+      "color": "#6BCB77"
+    },
+    "universidad": {
+      "es": "Universidad",
+      "en": "University",
+      "color": "#7C3AED"
+    }
+  },
+  "plataformas": [
+    {
+      "id": "khan-academy",
+      "nombre": "Khan Academy",
+      "url": "https://www.khanacademy.org/math",
+      "niveles": [
+        "primaria",
+        "secundaria",
+        "bachillerato",
+        "universidad"
+      ],
+      "idiomas": [
+        "es",
+        "en"
+      ],
+      "descripcion": {
+        "es": "Lecciones en video y ejercicios interactivos, desde aritmética básica hasta cálculo.",
+        "en": "Video lessons and interactive practice, from basic arithmetic to calculus."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "geogebra",
+      "nombre": "GeoGebra",
+      "url": "https://www.geogebra.org",
+      "niveles": [
+        "primaria",
+        "secundaria",
+        "bachillerato",
+        "universidad"
+      ],
+      "idiomas": [
+        "es",
+        "en"
+      ],
+      "descripcion": {
+        "es": "Herramientas dinámicas de geometría, álgebra, gráficas, estadística y cálculo.",
+        "en": "Dynamic tools for geometry, algebra, graphing, statistics and calculus."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "desmos",
+      "nombre": "Desmos",
+      "url": "https://www.desmos.com",
+      "niveles": [
+        "secundaria",
+        "bachillerato",
+        "universidad"
+      ],
+      "idiomas": [
+        "es",
+        "en"
+      ],
+      "descripcion": {
+        "es": "Calculadora gráfica en línea y actividades interactivas de matemáticas.",
+        "en": "Online graphing calculator and interactive math activities."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "phet",
+      "nombre": "PhET Simulaciones",
+      "url": "https://phet.colorado.edu",
+      "niveles": [
+        "primaria",
+        "secundaria",
+        "bachillerato",
+        "universidad"
+      ],
+      "idiomas": [
+        "es",
+        "en"
+      ],
+      "descripcion": {
+        "es": "Simulaciones interactivas de matemáticas y ciencias para explorar conceptos.",
+        "en": "Interactive math and science simulations for exploring concepts."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "mit-ocw",
+      "nombre": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu",
+      "niveles": [
+        "universidad"
+      ],
+      "idiomas": [
+        "en"
+      ],
+      "descripcion": {
+        "es": "Materiales de cursos universitarios del MIT: apuntes, tareas y videos.",
+        "en": "MIT university course materials: notes, assignments and videos."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "openstax",
+      "nombre": "OpenStax",
+      "url": "https://openstax.org",
+      "niveles": [
+        "bachillerato",
+        "universidad"
+      ],
+      "idiomas": [
+        "es",
+        "en"
+      ],
+      "descripcion": {
+        "es": "Libros de texto abiertos de matemáticas, revisados por pares. Algunos títulos también están en español.",
+        "en": "Peer-reviewed open math textbooks. Some titles are also available in Spanish."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "pauls-online-math-notes",
+      "nombre": "Paul's Online Math Notes",
+      "url": "https://tutorial.math.lamar.edu",
+      "niveles": [
+        "universidad"
+      ],
+      "idiomas": [
+        "en"
+      ],
+      "descripcion": {
+        "es": "Apuntes claros de álgebra, cálculo y ecuaciones diferenciales.",
+        "en": "Clear notes on algebra, calculus and differential equations."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "mathigon",
+      "nombre": "Mathigon",
+      "url": "https://mathigon.org",
+      "niveles": [
+        "secundaria",
+        "bachillerato"
+      ],
+      "idiomas": [
+        "es",
+        "en"
+      ],
+      "descripcion": {
+        "es": "Cursos interactivos y herramientas visuales para aprender matemáticas.",
+        "en": "Interactive courses and visual tools for learning math."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "colombia-aprende",
+      "nombre": "Colombia Aprende",
+      "url": "https://colombiaaprende.edu.co",
+      "niveles": [
+        "primaria",
+        "secundaria",
+        "bachillerato"
+      ],
+      "idiomas": [
+        "es"
+      ],
+      "descripcion": {
+        "es": "Portal educativo del Ministerio de Educación de Colombia con recursos por grado.",
+        "en": "Colombian Ministry of Education portal with resources by grade."
+      },
+      "gratis_verificado": true,
+      "publicidad": false,
+      "idiomas_verificado": true
+    },
+    {
+      "id": "math-is-fun",
+      "nombre": "Math is Fun",
+      "url": "https://www.mathsisfun.com",
+      "niveles": [
+        "primaria",
+        "secundaria"
+      ],
+      "idiomas": [
+        "en"
+      ],
+      "descripcion": {
+        "es": "Explicaciones sencillas con ejemplos y juegos. Muestra publicidad.",
+        "en": "Simple explanations with examples and games. Shows ads."
+      },
+      "gratis_verificado": true,
+      "publicidad": true,
+      "idiomas_verificado": true
+    }
+  ]
+}
